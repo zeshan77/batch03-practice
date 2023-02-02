@@ -9,7 +9,12 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::get();
+        $posts = Post::where('title', 'LIKE', '%Enim%')
+            ->take(5)
+            ->orderBy('id', 'asc')
+            ->first();
+
+//        $posts = Post::first();
 
         return $posts;
     }
