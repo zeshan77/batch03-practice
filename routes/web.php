@@ -18,3 +18,6 @@ Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/posts', [\App\Http\Controllers\PostController::class, 'index']);
 
 Route::post('/posts', [\App\Http\Controllers\PostController::class, 'store']);
+
+Route::get('/users', [\App\Http\Controllers\UserController::class, 'index']);
+Route::post('/users', [\App\Http\Controllers\UserController::class, 'store']);

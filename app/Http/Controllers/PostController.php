@@ -28,7 +28,7 @@ class PostController extends Controller
 
         $post = Post::with('user')
             ->orderBy('id', 'desc')
-            ->get();
+            ->first();
 
         return $post;
 
