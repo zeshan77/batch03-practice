@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,9 @@ class PostController extends Controller
 {
     public function index()
     {
+        $post = Post::with('tags')->first();
+
+        return $post;
 //        $posts = Post::where('title', 'LIKE', '%Enim%')
 //            ->take(5)
 //            ->orderBy('id', 'asc')
@@ -36,12 +40,11 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        $user = User::first();
+        $post = Post::first();
 
-        $post = $user->posts()->create([
-            'title' => $request->get('title'),
-            'description' => $request->get('description'),
-        ]);
+        $tags = Tag::take(4)->pluck('id')->toArray();
+
+        $post->tags()->sync($tags);
 
         return $post;
     }

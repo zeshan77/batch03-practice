@@ -21,3 +21,5 @@ Route::post('/posts', [\App\Http\Controllers\PostController::class, 'store']);
 
 Route::get('/users', [\App\Http\Controllers\UserController::class, 'index']);
 Route::post('/users', [\App\Http\Controllers\UserController::class, 'store']);
+
+Route::get('/tags', [\App\Http\Controllers\TagController::class, 'index']);
