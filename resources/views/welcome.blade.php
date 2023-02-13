@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ $title }}</title>
+        <title>{!! $title !!}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -21,6 +21,53 @@
         </style>
     </head>
     <body class="antialiased">
+        <hr>
+        @if($age == 18)
+            <h1>My age is 18</h1>
+        @endif
+
+        @switch($age)
+            @case(18)
+                <h1>My age is 18</h1>
+                @break
+            @case(22)
+                <h1>My age is 22</h1>
+                @break
+
+            @default
+                <h1>My age is neither 18 nor 22</h1>
+                @break
+        @endswitch
+
+        <hr>
+            @env('production')
+                <h1>We are on production</h1>
+            @endenv
+        <hr>
+
+        <ul>
+            @for($i = 0; $i<5; $i++)
+                <li>{{ $i }}</li>
+            @endfor
+
+        </ul>
+
+        <ul>
+            @if(count($users) > 3)
+                @foreach($users as $key => $user)
+                    <li>{{ $key }} : {{ $user['name'] }}</li>
+                @endforeach
+            @else
+                <h2>No records found</h2>
+            @endif
+
+            @forelse($users as $key => $user)
+                <li> {{ $loop->count }}: {{ $user['name'] }}</li>
+            @empty
+                <h2>No records found</h2>
+            @endforelse
+        </ul>
+
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -35,6 +82,9 @@
                     @endauth
                 </div>
             @endif
+
+
+
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
@@ -127,6 +177,7 @@
                     </div>
                 </div>
             </div>
+                @includeUnless(true, 'footer')
         </div>
     </body>
 </html>
