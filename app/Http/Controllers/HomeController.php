@@ -21,4 +21,9 @@ class HomeController extends Controller
             'users' => $users,
         ]);
     }
+
+    public function home()
+    {
+        return view('index');
+    }
 }
