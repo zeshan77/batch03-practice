@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,14 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'home']);
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'home']);
 
-Route::get('/posts', [\App\Http\Controllers\PostController::class, 'index']);
+Route::get('/posts', [PostController::class, 'index']);
+Route::get('/posts/create', [PostController::class, 'create']);
+Route::post('/posts', [PostController::class, 'store']);
 
-Route::post('/posts', [\App\Http\Controllers\PostController::class, 'store']);
 
-Route::get('/users', [\App\Http\Controllers\UserController::class, 'index']);
-Route::post('/users', [\App\Http\Controllers\UserController::class, 'store']);
 
-Route::get('/tags', [\App\Http\Controllers\TagController::class, 'index']);
+Route::get('/users', [UserController::class, 'index']);
+Route::post('/users', [UserController::class, 'store']);
+
+Route::get('/tags', [TagController::class, 'index']);

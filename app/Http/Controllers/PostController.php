@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostCreateRequest;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\User;
@@ -11,9 +12,11 @@ class PostController extends Controller
 {
     public function index()
     {
-        $post = Post::with('tags')->first();
+        $posts = Post::with('tags')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        return $post;
+        return $posts;
 //        $posts = Post::where('title', 'LIKE', '%Enim%')
 //            ->take(5)
 //            ->orderBy('id', 'asc')
@@ -38,14 +41,21 @@ class PostController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function store(PostCreateRequest $request)
     {
-        $post = Post::first();
+        $data = $request->validated();
 
-        $tags = Tag::take(4)->pluck('id')->toArray();
+        $post = Post::create([
+            'user_id' => User::first()->id,
+            'title' => $data['abc'],
+            'description' => $data['description'],
+        ]);
 
-        $post->tags()->sync($tags);
+        return redirect('/posts');
+    }
 
-        return $post;
+    public function create()
+    {
+        return view('posts.create');
     }
 }
