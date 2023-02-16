@@ -23,7 +23,6 @@ class PostController extends Controller
 //            ->first();
 //
 ////        $posts = Post::first();
-//
 //        return $posts;
 
 
@@ -46,8 +45,8 @@ class PostController extends Controller
         $data = $request->validated();
 
         $post = Post::create([
-            'user_id' => User::first()->id,
-            'title' => $data['abc'],
+            'user_id' => $data['user_id'],
+            'title' => $data['title'],
             'description' => $data['description'],
         ]);
 
